@@ -1,0 +1,105 @@
+/* 
+  This is a SAMPLE File to get you started. Follow the instructions on the project to complete the tasks. 
+  You'll probably need to override some of theese styles.
+*/
+
+:root {
+    --primary-color: #007BFF; /* Color principal */
+    --secondary-color: #6c757d; /* Color secundario */
+    --background-color: #f8f9fa; /* Fondo general */
+    --text-color: #212529; /* Color del texto */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+}
+
+nav {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+/* Estilo para las tarjetas de lugar y reseña */
+.place-details, .review-card {
+    margin: 20px;              /* Fijo: Margen */
+    padding: 10px;             /* Fijo: Padding */
+    border: 1px solid #ddd;    /* Fijo: Border */
+    border-radius: 10px;       /* Fijo: Border Radius */
+    background-color: #f9f9f9; /* Fondo claro para destacar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo específico para detalles del lugar */
+.place-details {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilo específico para las tarjetas de reseña */
+.review-card {
+    font-size: 14px;
+    color: #555;
+    background-color: #fff; /* Fondo blanco para diferenciarlas */
+}
+
+.details-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.details-button, .add-reviewform button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.details-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.details-button:hover, .add-reviewform button:hover {
+    background-color: #0056b3;
+}
+
+/* Formularios para agregar reseñas */
+.add-reviewform {
+    margin: 20px;              /* Igual que las tarjetas */
+    padding: 10px;             /* Igual que las tarjetas */
+    border: 1px solid #ddd;    /* Igual que las tarjetas */
+    border-radius: 10px;       /* Igual que las tarjetas */
+    background-color: #f1f1f1; /* Fondo ligeramente diferente */
+}

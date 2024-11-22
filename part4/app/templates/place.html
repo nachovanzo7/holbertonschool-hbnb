@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Details</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="logo.png" alt="Logo" class="logo">
+            <a href="login.html" id="login-link" class="login-button">Login</a>
+        </nav>
+    </header>
+    <main>
+        <!-- Detalles del lugar -->
+        <section id="place-details" class="place-details">
+            <h1 class="place-name">Cozy Cabin</h1>
+            <div class="place-info">
+                <p><strong>Host:</strong> John Doe</p>
+                <p><strong>Price:</strong> $120/night</p>
+                <p><strong>Description:</strong> A beautiful and cozy cabin surrounded by nature, perfect for a weekend getaway.</p>
+                <p><strong>Amenities:</strong> Wi-Fi, Fireplace, Hot Tub, Fully Equipped Kitchen</p>
+            </div>
+        </section>
+
+        <!-- Reseñas -->
+        <section id="reviews">
+            <h2>Reviews</h2>
+            <div class="review-card">
+                <p class="review-comment">"Great place to stay! Loved the cozy atmosphere."</p>
+                <p class="review-user"><strong>User:</strong> JaneSmith</p>
+                <p class="review-rating"><strong>Rating:</strong> 5/5</p>
+            </div>
+            <div class="review-card">
+                <p class="review-comment">"The location was beautiful, but the Wi-Fi was spotty."</p>
+                <p class="review-user"><strong>User:</strong> AlexD</p>
+                <p class="review-rating"><strong>Rating:</strong> 4/5</p>
+            </div>
+            <!-- Más reseñas se pueden agregar dinámicamente -->
+        </section>
+
+        <!-- Agregar una reseña (opcional) -->
+        <section id="add-review">
+            <h2>Add a Review</h2>
+            <!-- Mostrar formulario si el usuario ha iniciado sesión -->
+            <form id="review-form" class="add-reviewform">
+                <label for="review-text">Review:</label>
+                <textarea id="review-text" name="review-text" required></textarea>
+                
+                <label for="review-rating">Rating:</label>
+                <select id="review-rating" name="review-rating" required>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <!-- Mostrar botón si el usuario no ha iniciado sesión -->
+            <button id="login-prompt" class="details-button">Log in to add a review</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 all rights reserved for Holberton School.</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
