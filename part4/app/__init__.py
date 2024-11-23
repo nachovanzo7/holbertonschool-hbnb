@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_restx import Api
 from app.api.v1.users import api as users_ns
 from app.api.v1.amenities import api as amenities_ns
@@ -24,6 +24,10 @@ def create_app(config_class="config.DevelopmentConfig"):
     api.add_namespace(places_ns, path='/places')
     api.add_namespace(reviews_ns, path='/reviews')
     api.add_namespace(login_ns, path='/auth')
+    
+    @app.route('/login')
+    def login_page():   
+        return render_template('login.html')
 
     bcrypt.init_app(app)
     jwt.init_app(app)

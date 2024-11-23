@@ -1,13 +1,9 @@
-/* 
-  This is a SAMPLE File to get you started. Follow the instructions on the project to complete the tasks. 
-  You'll probably need to override some of theese styles.
-*/
-
 :root {
-    --primary-color: #007BFF; /* Color principal */
-    --secondary-color: #6c757d; /* Color secundario */
+    --primary-color: #bb07074e; /* Color principal */
+    --secondary-color: #9f0505e3; /* Color secundario */
     --background-color: #f8f9fa; /* Fondo general */
     --text-color: #212529; /* Color del texto */
+    --secondary-bg-color: #fff; /* Fondo de las tarjetas secundarias */
 }
 
 * {
@@ -20,19 +16,61 @@
 body {
     background-color: var(--background-color);
     color: var(--text-color);
-    font-family: 'Arial', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 header {
-    background-color: #333;
+    background-color: #9f0505e3;
     color: #fff;
     padding: 1rem;
 }
 
 nav {
-    background-color: var(--primary-color);
+    display: flex; /* Activa Flexbox */
+    justify-content: space-between; /* Distribuye los tres elementos principales */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 0 1rem; /* Espaciado interno */
+    background-color: var(--primary-color); /* Color del nav */
     color: white;
+    height: 60px; /* Altura del nav */
 }
+
+.logo {
+    height: 40px; /* Ajusta el tamaño del logo */
+}
+
+.nav-links {
+    display: flex; /* Flexbox dentro de la lista */
+    flex: 1; /* Toma todo el espacio disponible entre el logo y el login */
+    justify-content: space-evenly; /* Espacia los elementos proporcionalmente */
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none; /* Sin subrayado */
+    font-size: 16px;
+}
+
+.login-button {
+    background-color: #9f0505e3; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 15px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    text-align: center; /* Asegura que el texto esté centrado */
+}
+
+.login-button:hover {
+    background-color: #0056b3; /* Cambia el color al pasar el mouse */
+}
+
+
 
 nav a {
     color: #fff;
@@ -41,65 +79,160 @@ nav a {
 }
 
 main {
-    padding: 2rem;
+    padding: 20px;
+    flex: 1;
 }
 
 /* Estilo para las tarjetas de lugar y reseña */
-.place-details, .review-card {
-    margin: 20px;              /* Fijo: Margen */
-    padding: 10px;             /* Fijo: Padding */
-    border: 1px solid #ddd;    /* Fijo: Border */
-    border-radius: 10px;       /* Fijo: Border Radius */
-    background-color: #f9f9f9; /* Fondo claro para destacar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+.place-details, .review-card, .place-card {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--secondary-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Estilo específico para detalles del lugar */
 .place-details {
     font-size: 16px;
-    color: #333;
+    color: var(--text-color);
 }
 
 /* Estilo específico para las tarjetas de reseña */
 .review-card {
     font-size: 14px;
     color: #555;
-    background-color: #fff; /* Fondo blanco para diferenciarlas */
 }
 
-.details-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
+/* Botones */
 .details-button, .add-reviewform button {
     display: inline-block;
     margin-top: 10px;
     padding: 10px 15px;
-    background-color: #007BFF;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.details-button:hover {
-    background-color: var(--secondary-color);
-}
-
 .details-button:hover, .add-reviewform button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 
 /* Formularios para agregar reseñas */
 .add-reviewform {
-    margin: 20px;              /* Igual que las tarjetas */
-    padding: 10px;             /* Igual que las tarjetas */
-    border: 1px solid #ddd;    /* Igual que las tarjetas */
-    border-radius: 10px;       /* Igual que las tarjetas */
-    background-color: #f1f1f1; /* Fondo ligeramente diferente */
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+
+/* -----------------------Estilo para las tarjetas-----------------------*/
+#reviews, #places-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; 
+    padding: 20px; 
+}
+
+#filter {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    padding: 10px;
+}
+
+#filter label {
+    font-size: 16px; 
+}
+
+#filter select {
+    display: inline-block;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: auto;
+    text-align: center;
+}
+
+.review-card, .place-card, .place-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff; 
+    border: 1px solid #ddd;
+    border-radius: 10px; 
+    padding: 15px; 
+    box-shadow: 0 2px 4px rgba(91, 2, 2, 0.332); 
+    text-align: center;
+    min-height: 170px;
+}
+
+/* dentro de las tarjetas */
+.review-comment {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.review-user {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #777;
+}
+
+.review-rating {
+    font-size: 14px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-top: auto;
+}
+
+form {
+    display: flex; /* Flexbox para los campos */
+    flex-direction: column; /* Apila verticalmente los elementos */
+    gap: 15px; /* Espaciado entre cada campo */
+    width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible */
+    max-width: 400px; /* Opcional: establece un ancho máximo */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px; /* Espacio entre el label y el input */
+}
+
+input, textarea, select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    box-sizing: border-box; /* Incluye padding en el cálculo del ancho */
+}
+
+button {
+    background-color: #9f0505e3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #9f0505e3;
+}
+
+footer {
+    background-color: #9f05054d;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
 }
