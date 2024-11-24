@@ -27,7 +27,7 @@ place_model = api.model('Place', {
     'latitude': fields.Float(required=True, description='Latitude of the place'),
     'longitude': fields.Float(required=True, description='Longitude of the place'),
     'owner_id': fields.String(required=True, description='ID of the owner'),
-    'amenities': fields.List(fields.String, required=True, description="List of amenities ID's")
+    'amenities': fields.List(fields.String, required=False, description="List of amenities ID's")
 })
 
 @api.route('/')
@@ -38,6 +38,7 @@ class PlaceList(Resource):
     @jwt_required()
     def post(self):
         place_data = api.payload
+        print(place_data)
         current_user = get_jwt_identity()
         new_place = facade.create_place(place_data)
         if current_user['id'] != place_data['owner_id']:

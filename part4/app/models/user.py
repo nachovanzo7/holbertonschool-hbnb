@@ -5,7 +5,7 @@ from flask_bcrypt import bcrypt, Bcrypt
 bcrypt = Bcrypt()
 
 class User(BaseModel):
-    def __init__(self, first_name: str, last_name: str, email: str, password, is_admin=False):
+    def __init__(self, first_name: str, last_name: str, email: str, password, is_admin=True):
         super().__init__()
         if self.validate_first_name(first_name) and self.validate_last_name(last_name):
             self.first_name = first_name

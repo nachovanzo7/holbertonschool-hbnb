@@ -16,7 +16,7 @@ class Place(BaseModel):
             self.longitude = longitude
         self.owner_id = owner_id
         self.reviews = []
-        self.amenities = [amenities]
+        self.amenities = amenities if isinstance(amenities, list) else [amenities]
 
     @staticmethod
     def validate_title(title):

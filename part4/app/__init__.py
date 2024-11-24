@@ -26,8 +26,16 @@ def create_app(config_class="config.DevelopmentConfig"):
     api.add_namespace(login_ns, path='/auth')
     
     @app.route('/login')
-    def login_page():   
+    def login_page():
         return render_template('login.html')
+
+    @app.route('/places/')
+    def places_page():
+        return render_template('place.html')
+    
+    @app.route('/home')
+    def home_page():
+        return render_template('index.html')
 
     bcrypt.init_app(app)
     jwt.init_app(app)

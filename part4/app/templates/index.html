@@ -9,10 +9,10 @@
 <body>
     <header>
         <nav>
-            <a href="index.html"><img src="../static/images/logo.png" alt="Logo" class="logo"></a>
+            <a href="home"><img src="../static/images/logo.png" alt="Logo" class="logo"></a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html" class="login-button">Login</a></li>
+                <li><a href="home">Home</a></li>
+                <li><a href="login" class="login-button">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -24,26 +24,18 @@
             </select>
         </section>
         <section id="places-list"> 
+            {% for place in places %}
             <div class="place-card">
-                <h3 class="place-name">Cabain Cuaruzucuatiá</h3>
-                <p class="place-price">$120/night</p>
-                <button class="details-button">View Details</button>
+                <h3 class="place-name">{{ place.name }}</h3>
+                <p class="place-price">${{ place.price }}/night</p>
+                <a href="/places/{{ place.id }}" class="details-button">View Details</a>
             </div>
-            <div class="place-card">
-                <h3 class="place-name">Hotel Berroncho</h3>
-                <p class="place-price">$250/night</p>
-                <button class="details-button">View Details</button>
-            </div>
-            <div class="place-card"> 
-                <h3 class="place-name">Villa Garcia Hostel</h3>
-                <p class="place-price">$400/night</p>
-                <button class="details-button">View Details</button>
-            </div>
+            {% endfor %}
         </section>
     </main>
     <footer>
         <p>&copy; 2024 all rights reserved for Holberton School.</p>
     </footer>
-    <script src="scripts.js"></script>
+    <script src="../static/scripts/scripts.js"></script>
 </body>
 </html>
