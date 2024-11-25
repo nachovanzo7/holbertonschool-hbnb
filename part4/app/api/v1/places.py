@@ -27,7 +27,7 @@ place_model = api.model('Place', {
     'latitude': fields.Float(required=True, description='Latitude of the place'),
     'longitude': fields.Float(required=True, description='Longitude of the place'),
     'owner_id': fields.String(required=True, description='ID of the owner'),
-    'amenities': fields.List(fields.String, required=False, description="List of amenities ID's")
+    'amenities': fields.List(fields.String, required=True, description="List of amenities ID's")
 })
 
 @api.route('/')
@@ -38,7 +38,6 @@ class PlaceList(Resource):
     @jwt_required()
     def post(self):
         place_data = api.payload
-        print(place_data)
         current_user = get_jwt_identity()
         new_place = facade.create_place(place_data)
         if current_user['id'] != place_data['owner_id']:
@@ -89,3 +88,29 @@ class PlaceResource(Resource):
             return {"error": "Missing data"}, 400
         place = facade.update(place_id, data)
         return {"message": "Place updated successfully", "data": data}, 200
+    
+@api.route('/places/<place_id>')
+class AdminPlaceModify(Resource):
+    @jwt_required()
+    def put(self, place_id):
+        current_user = get_jwt_identity()
+        data = api.payload
+        place = facade.get_place(place_id)
+        # Set is_admin default to False if not exists
+        is_admin = current_user.get('is_admin', False)
+        user_id = current_user.get('id')
+
+        place = facade.get_place(place_id)
+        if not is_admin and place.owner_id != user_id: #comprueba que no sea la misma persona que lo creo
+            return {'error': 'Unauthorized action'}, 403
+        
+        if not is_admin:
+            if not data["title"] or not data["description"] or not data["longitude"] or not data["latitude"] or not data["price"]:
+                return {"error": "Missing data"}, 400
+            
+            if data['longitude'] != place.longitude or data['latitude'] != place.latitude:
+                return {"error": "Cannot modify Latitude or Longitude "}, 400
+            
+        place = facade.update(place_id, data)
+        return {"message": "Place updated successfully", "data": data}, 200
+        

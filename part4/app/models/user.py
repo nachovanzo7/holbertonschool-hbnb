@@ -1,43 +1,31 @@
 import re
-from app.models.basemodel import BaseModel
+from app.models.baseclass import BaseModel
 from flask_bcrypt import bcrypt, Bcrypt
+from app import db, bcrypt
+from sqlalchemy.orm import validates, relationship
 
 bcrypt = Bcrypt()
 
 class User(BaseModel):
-    def __init__(self, first_name: str, last_name: str, email: str, password, is_admin=True):
-        super().__init__()
-        if self.validate_first_name(first_name) and self.validate_last_name(last_name):
-            self.first_name = first_name
-            self.last_name = last_name
-        if self.validate_email(email):
-            self.email = email
-        self.is_admin = is_admin
-        self.password = self.hash_password(password)
+    __tablename__ = 'users'
+
+    first_name = db.Column(db.String(50), nullable=False) #String y notNull
+    last_name = db.Column(db.String(50), nullable=False) #String y notNull
+    email = db.Column(db.String(120), nullable=False, unique=True) #String, notNull y único
+    password = db.Column(db.String(128), nullable=False) #String y notNull
+    is_admin = db.Column(db.Boolean, default=False) #Boolean y False por defecto
+    places = relationship('places', backref='user', lazy=True)
+    reviews = relationship('review', backref='user', lazy=True)
 
     @staticmethod
-    def validate_first_name(first_name):
-        if type(first_name) is not str:
-            raise TypeError("Name not valid")
-        if len(first_name) > 50:
-            raise ValueError("Name cannot contain more than 50 characters")
-        return True
-
-    @staticmethod
-    def validate_last_name(last_name):
-        if type(last_name) is not str:
-            raise TypeError("Name not valid")
-        if len(last_name) > 50:
-            raise ValueError("Name cannot contain more than 50 characters")
-        return True
-
-    @staticmethod
+    @validates('email')
     def validate_email(email):
         regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
         if re.match(regex, email):
             return True
         else:
             raise TypeError("Email not valid")
+
 
     def serializar_usuario(self):
         return {
@@ -54,3 +42,4 @@ class User(BaseModel):
     def verify_password(self, password):
         """Verifies if the provided password matches the hashed password."""
         return bcrypt.check_password_hash(self.password, password)
+    
