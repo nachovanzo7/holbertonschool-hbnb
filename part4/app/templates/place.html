@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Details</title>
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
@@ -11,60 +10,30 @@
         <nav>
             <a href="home"><img src="../static/images/logo.png" alt="Logo" class="logo"></a>
             <ul class="nav-links">
-                <li><a href="home">Home</a></li>
-                <li><a href="login" class="login-button">Login</a></li>
+                <li><a href="../home">Home</a></li>
+                <li><a href="login" id="login-link" class="login-button">Login</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <!-- Detalles del lugar -->
         <section id="place-details" class="place-details">
-            <h1 class="place-name">Cozy Cabin</h1>
-            <div class="place-info">
-                <p><strong>Host:</strong> John Doe</p>
-                <p><strong>Price:</strong> $120/night</p>
-                <p><strong>Description:</strong> A beautiful and cozy cabin surrounded by nature, perfect for a weekend getaway.</p>
-                <p><strong>Amenities:</strong> Wi-Fi, Fireplace, Hot Tub, Fully Equipped Kitchen</p>
-            </div>
+            <!-- El contenido será llenado dinámicamente por JavaScript -->
         </section>
 
         <!-- Reseñas -->
         <section>
             <h2>Reviews</h2>
             <div id="reviews">
-            <div class="review-card">
-                <p class="review-comment">"Scelente mui lindo"</p>
-                <p class="review-user"><strong>User:</strong> JaneSmith</p>
-                <p class="review-rating"><strong>Rating:</strong> 5/5</p>
+                <!-- Las reseñas serán cargadas dinámicamente por JavaScript -->
             </div>
-            <div class="review-card">
-                <p class="review-comment">"Hermoso lugar, lastima que la vecina no para de escuchar la Joaqui"</p>
-                <p class="review-user"><strong>User:</strong> AlexD</p>
-                <p class="review-rating"><strong>Rating:</strong> 4/5</p>
-            </div>
-            <div class="review-card">
-                <p class="review-comment">"Alto lugar encima un boludo se olvido del spotify en la tele"</p>
-                <p class="review-user"><strong>User:</strong> AlexD</p>
-                <p class="review-rating"><strong>Rating:</strong> 5/5</p>
-            </div>
-            <div class="review-card">
-                <p class="review-comment">"Hermoso lugar, lastima que la vecina no para de escuchar la Joaqui"</p>
-                <p class="review-user"><strong>User:</strong> AlexD</p>
-                <p class="review-rating"><strong>Rating:</strong> 4/5</p>
-            </div>
-            <div class="review-card">
-                <p class="review-comment">"Alto lugar encima un boludo se olvido del spotify en la tele"</p>
-                <p class="review-user"><strong>User:</strong> AlexD</p>
-                <p class="review-rating"><strong>Rating:</strong> 5/5</p>
-            </div>
-        </div>
         </section>
 
         <!-- Agregar una reseña (opcional) -->
         <section id="add-review">
             <h2>Add a Review</h2>
             <!-- Mostrar formulario si el usuario ha iniciado sesión -->
-            <form id="review-form" class="add-reviewform">
+            <form id="review-form" class="add-reviewform" style="display: none;">
                 <label for="review-text">Review:</label>
                 <textarea id="review-text" name="review-text" required></textarea>
                 
@@ -81,7 +50,7 @@
             </form>
 
             <!-- Mostrar botón si el usuario no ha iniciado sesión -->
-            <button id="login-prompt" class="details-button">Log in to add a review</button>
+            <button id="login-prompt" class="details-button" style="display: none;">Log in to add a review</button>
         </section>
     </main>
     <footer>

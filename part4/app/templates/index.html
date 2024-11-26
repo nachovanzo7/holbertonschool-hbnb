@@ -26,9 +26,9 @@
         <section id="places-list"> 
             {% for place in places %}
             <div class="place-card">
-                <h3 class="place-name">{{ place.name }}</h3>
+                <h3 class="place-name">{{ place.title }}</h3>
                 <p class="place-price">${{ place.price }}/night</p>
-                <a href="/places/{{ place.id }}" class="details-button">View Details</a>
+                <a href="/places?placeId={{ place.id }}" class="details-button">View Details</a>
             </div>
             {% endfor %}
         </section>

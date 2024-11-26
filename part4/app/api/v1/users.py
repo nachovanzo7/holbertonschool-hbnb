@@ -15,7 +15,7 @@ user_model = api.model('User', {
     'last_name': fields.String(required=True, description='Last name of the user'),
     'email': fields.String(required=True, description='Email of the user'),
     'password': fields.String(required=True, description='Password of the user'),
-    'is_admin': fields.String(required=False, description='If the user is admin')
+    'is_admin': fields.Boolean(required=False, description='If the user is admin')
 })
 
 
@@ -48,7 +48,7 @@ class UserList(Resource):
         lista = []
         lista2 = facade.get_all()
         for i in lista2:
-            serializado = i.serializar_usuario()
+            serializado = i.serialize()
             lista.append(serializado)
         return lista
 

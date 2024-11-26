@@ -1,7 +1,6 @@
 from flask_restx import Namespace, Resource, fields
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from app.services import facade
-from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Namespace('auth', description='Authentication operations')
 
@@ -11,27 +10,29 @@ login_model = api.model('Login', {
     'password': fields.String(required=True, description='User password')
 })
 
-@jwt_required()
 @api.route('/login')
 class Login(Resource):
     @api.expect(login_model)
     def post(self):
         """Authenticate user and return a JWT token"""
         credentials = api.payload  # Get the email and password from the request payload
-        
+
         # Step 1: Retrieve the user based on the provided email
         user = facade.get_user_by_email(credentials['email'])
-        
+
         # Step 2: Check if the user exists and the password is correct
         if not user:
-            return {'error': user, 'mail': credentials['email']}, 
+            return {'error': 'User not found'}, 404
 
         if not user.verify_password(credentials['password']):
-            return {'error': 'Invalid Data'}, 401
+            return {'error': 'Invalid credentials'}, 401
 
         # Step 3: Create a JWT token with the user's id and is_admin flag
-        access_token = create_access_token(identity={'id': str(user.id), 'is_admin': user.is_admin})
-        
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims={'is_admin': user.is_admin}
+        )
+
         # Step 4: Return the JWT token to the client
         return {'access_token': access_token}, 200
 
@@ -41,5 +42,5 @@ class ProtectedResource(Resource):
     @jwt_required()
     def get(self):
         """A protected endpoint that requires a valid JWT token"""
-        current_user = get_jwt_identity()  # Retrieve the user's identity from the token
-        return {'message': f'Hello, user {current_user["id"]}'}, 200
+        current_user_id = get_jwt_identity()  # Retrieve the user's identity from the token
+        return {'message': f'Hello, user {current_user_id}'}, 200

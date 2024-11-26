@@ -26,8 +26,7 @@ place_model = api.model('Place', {
     'price': fields.Float(required=True, description='Price per night'),
     'latitude': fields.Float(required=True, description='Latitude of the place'),
     'longitude': fields.Float(required=True, description='Longitude of the place'),
-    'owner_id': fields.String(required=True, description='ID of the owner'),
-    'amenities': fields.List(fields.String, required=True, description="List of amenities ID's")
+    'amenities': fields.List(fields.String, required=True, description="List of amenities IDs")
 })
 
 @api.route('/')
@@ -38,27 +37,39 @@ class PlaceList(Resource):
     @jwt_required()
     def post(self):
         place_data = api.payload
-        current_user = get_jwt_identity()
-        new_place = facade.create_place(place_data)
-        if current_user['id'] != place_data['owner_id']:
-            return {'error': 'not authorized', 'current': current_user}, 401
-        return {
-            "id": new_place.id,
-            "title": new_place.title,
-            "description": new_place.description,
-            "price": new_place.price,
-            "latitude": new_place.latitude,
-            "longitude": new_place.longitude,
-            "owner_id": new_place.owner_id,
-            "amenities": new_place.amenities
-        }
+        current_user_id = get_jwt_identity()  # This is the user's ID as a string
+        place_data['owner_id'] = current_user_id  # Set owner_id from the JWT identity
+
+        # Validate required fields
+        required_fields = ['title', 'description', 'price', 'latitude', 'longitude']
+        for field in required_fields:
+            if field not in place_data or not place_data[field]:
+                return {'error': f'Missing field: {field}'}, 400
+
+        # Create the new place
+        try:
+            new_place = facade.create_place(place_data)
+            return {
+                "id": new_place.id,
+                "title": new_place.title,
+                "description": new_place.description,
+                "price": new_place.price,
+                "latitude": new_place.latitude,
+                "longitude": new_place.longitude,
+                "owner_id": new_place.owner_id,
+                "amenities": [amenity.name for amenity in new_place.amenities]
+            }, 201
+        except ValueError as e:
+            return {'error': str(e)}, 400
+        except Exception as e:
+            return {'error': 'An unexpected error occurred'}, 500
 
     @api.response(200, 'List of places retrieved successfully')
     def get(self):
         lista = []
         lista2 = facade.get_all_places()
         for i in lista2:
-            serializado = i.serializar_places()
+            serializado = i.serialize()
             lista.append(serializado)
         return lista
 
